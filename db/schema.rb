@@ -15,11 +15,10 @@ ActiveRecord::Schema.define(version: 2018_08_15_225746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "merchants", id: false, force: :cascade do |t|
-    t.integer "id"
+  create_table "merchants", force: :cascade do |t|
     t.text "name"
-    t.date "created_at"
-    t.date "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
