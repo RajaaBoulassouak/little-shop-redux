@@ -5,4 +5,9 @@
     <li> <%= item.price %> </li>
     <li> <%= item.image %> </li>
   </ul>
+  <form action="/items/<%= item.id %>" method="post">
+    <input type="hidden" value="DELETE" name="_method"/>
+    <input type="submit" value="delete"/>
+    
+  </form>
 <% end %>
