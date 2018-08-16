@@ -1,7 +1,14 @@
+<form action="/merchants/new">
+  <input type="submit" value="Create a New Merchant"/>
+</form>
+
 <% @merchants.each do |merchant| %>
      <ul>
-       <li><%= merchant.name  %></li>
+       <li><a href="/merchants/<%=merchant.id%>" target="_self"><%=merchant.name%></a></li>
      </ul>
+     <form action="/merchants/<%= merchant.id %>/edit">
+       <input type="submit" value="Edit" />
+     </form>
      <form action="/merchants/<%= merchant.id %>" method="POST">
        <input type="hidden" value="DELETE" name="_method"/>
        <input type="submit" value="delete"/>

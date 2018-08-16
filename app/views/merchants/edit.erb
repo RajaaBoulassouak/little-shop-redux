@@ -1,6 +1,6 @@
 <form action="/merchants/<%= @merchant.id %>" method="post">
   <p> edit </p>
   <input type="hidden" name="_method" value="PUT"/>
-  <input type="text" value="<%= @merchant.name %> >" name="merchant[name]"/>
+  <input type="text" value="<%= @merchant.name %>" name="merchant[name]"/>
   <input type="submit" value='Submit'/>
 </form>
