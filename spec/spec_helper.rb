@@ -9,6 +9,7 @@ require 'capybara/dsl'
 Bundler.require(:default, :test)
 
 Capybara.app = LittleShopApp
+Capybara.save_path = 'tmp/capybara'
 
 DatabaseCleaner.strategy = :truncation
 
