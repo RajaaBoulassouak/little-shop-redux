@@ -1,0 +1,10 @@
+<% @merchants.each do |merchant| %>
+     <ul>
+       <li><%= merchant.name  %></li>
+     </ul>
+     <form action="/merchants/<%= merchant.id %>" method="POST">
+       <input type="hidden" value="DELETE" name="_method"/>
+       <input type="submit" value="delete"/>
+       
+     </form>
+   <% end %>
