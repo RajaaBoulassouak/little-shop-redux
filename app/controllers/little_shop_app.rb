@@ -72,10 +72,6 @@ class LittleShopApp < Sinatra::Base
     erb :'invoices/index'
   end
 
-  # get '/invoices/new' do
-  #   erb :'invoices/new'
-  # end
-
   get '/invoices/:id/edit' do
     @invoice = Invoice.find_by( id: params[:id] )
     erb :'invoices/edit'

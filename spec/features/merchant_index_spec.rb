@@ -16,7 +16,7 @@ RSpec.describe 'Merchants Index Page' do
       first(:link).click
       
       expect(current_path).to eq('/merchants/1')
-      expect(page).to have_content( @merchant_1.name )
+      expect(page).to have_content(@merchant_1.name )
     end
   end
   context 'Merchant Actions' do
