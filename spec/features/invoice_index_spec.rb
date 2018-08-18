@@ -9,13 +9,13 @@ RSpec.describe 'Invoices Index Page' do
       
       visit '/invoices'
       
-      save_and_open_page
-    
       expect(page).to have_content(@invoice_1.merchant_id)
       expect(page).to have_content(@invoice_2.merchant_id)
     end 
+    
     it 'It should show a single invoice' do
       visit '/invoices'
+      
       first(:link).click
     
       expect(current_path).to eq('/invoices/1')
@@ -26,12 +26,14 @@ RSpec.describe 'Invoices Index Page' do
   
   context 'Invoice Actions' do
     it 'It should delete an invoice' do
-     visit '/invoices'
+      visit '/invoices'
+     
       first(:button, 'delete').click
-  
+    
       expect(page).to_not have_content(@invoice_1.merchant_id)
       expect(page).to_not have_content(@invoice_1.status)
     end
+    
     it 'It should edit an invoice' do
       visit '/invoices'
     
