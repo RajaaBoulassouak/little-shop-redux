@@ -25,6 +25,13 @@ RSpec.describe InvoiceItem do
                                     quantity: 1)
     expect(invoice_item).to_not be_valid
   end
-
+  it 'has one invoice' do
+  association = described_class.reflect_on_association(:invoice)
+   expect(association.macro).to eq :belongs_to
+ end
+ it 'has one item' do
+   association = described_class.reflect_on_association(:item)
+    expect(association.macro).to eq :belongs_to
+  end
   end
 end
