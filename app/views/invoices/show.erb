@@ -1,2 +1,5 @@
-<h1> <%= @invoice.merchant_id %> </h1> 
-<p> <%= @invoice.status %> </p>
+<h1> <%= @invoice.merchant_id %> </h1>
+<p> <%= @invoice.status %>
+    <%=@invoice_item.quantity %>
+    <%=@invoice_item.unit_price %>
+</p>
