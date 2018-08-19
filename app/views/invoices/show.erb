@@ -16,6 +16,7 @@
       <td> <%= invoice_item.item.name %></td>
       <td><%= invoice_item.quantity %></td>
       <td><%= invoice_item.item.unit_price %></td>
+      <td><%= invoice_item.item.unit_price * invoice_item.quantity %></td>
     </tr>
   <% end %>
 </table>
