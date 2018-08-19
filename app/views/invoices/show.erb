@@ -1,2 +1,23 @@
-<h1> <%= @invoice.merchant_id %> </h1> 
-<p> <%= @invoice.status %> </p>
+<h1> <%= @invoice.merchant_id %> </h1>
+<p> <%= @invoice.status %>
+</p>
+
+<div>
+  <table style="width:100%">
+  <tr>
+    <th> Item ID </th>
+    <th> Item Title </th>
+    <th> Quantity </th>
+    <th> Unit Price </th>
+  </tr>
+  <% @invoice_items.each do |invoice_item| %>
+    <tr>
+      <td> <%= invoice_item.item.id %>  </td>
+      <td> <%= invoice_item.item.name %></td>
+      <td><%= invoice_item.quantity %></td>
+      <td><%= invoice_item.item.unit_price %></td>
+      <td><%= invoice_item.item.unit_price * invoice_item.quantity %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
