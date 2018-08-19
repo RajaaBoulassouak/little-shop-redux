@@ -14,4 +14,5 @@ group :development, :test do
   gem 'shotgun'
   gem 'tux'
   gem 'database_cleaner'
+  gem 'pry'
 end
