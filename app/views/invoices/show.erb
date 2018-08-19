@@ -12,7 +12,7 @@
   </tr>
   <% @invoice_items.each do |invoice_item| %>
     <tr>
-      <td> <%= invoice_item.item.id %>  </td>
+      <td> <%= invoice_item.item_id %>  </td>
       <td> <%= invoice_item.item.name %></td>
       <td><%= invoice_item.quantity %></td>
       <td><%= invoice_item.item.unit_price %></td>
