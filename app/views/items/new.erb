@@ -1,7 +1,68 @@
-<form action="/items" method="post" class='new-item'>
-  <input type="text" value="Title" name="item[title]"/>
-  <input type="text" value="Description" name="item[description]"/>
-  <input type="text" value="Price" name="item[price]"/>
-  <input type="text" value="image" name="item[image]"/>
-  <input type="submit" value="Submit"/>
-</form>
+<div class="jumbotron">
+  <h1 class="display-4" id="item-jumbo-title">Create a New Merchant</h1>
+  <hr class="my-4">
+</div>
+
+<form class="form-horizontal" action="/items" method="POST">
+  <div class="form-group">
+    <div class="col-sm-10">
+
+      <form class="form-horizontal" action="/items" method="POST">
+        <div class="modal-body">
+          <label for="basic-url">Merchants</label>
+          <div class="input-group mb-3">
+            <select class="form-control" id="sel1" name="item[merchant]">
+              <% @merchants.each do |merchant| %>
+                <option>
+                  <%= merchant.name %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <label for="basic-url">Name</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Item Name" name="item[name]">
+          </div>
+
+          <label for="basic-url">Description</label>
+          <div class="input-group mb-3">
+            <textarea class="form-control" aria-label="description" name="item[description]"></textarea>
+          </div>
+
+          <label for="basic-url">Price</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Amount" name="item[unit_price]">
+          </div>
+
+          <label for="basic-url">Image URL</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Title" name="item[image]">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="table-responsive col-sm-4">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td>
+                <a href="/merchants">
+                  <button type="button" class="btn btn-outline-danger">Cancel</button>
+                </a>
+                <td>
+                  <button type="submit" class="btn btn-outline-success">Submit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>

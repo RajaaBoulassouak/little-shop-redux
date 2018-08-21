@@ -1,6 +1,35 @@
-<form action="/merchants/<%= @merchant.id %>" method="post">
-  <p> edit </p>
-  <input type="hidden" name="_method" value="PUT"/>
-  <input type="text" value="<%= @merchant.name %>" name="merchant[name]"/>
-  <input type="submit" value='Submit'/>
-</form>
+<div class="jumbotron">
+  <h1 class="display-4" ,="," id="merchant-jumbo-title">Edit
+    <%= @merchant.name%></h1>
+  <hr class="my-4">
+</div>
+
+<form class="form-horizontal" action="/merchants" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  <div class="form-group">
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="merchant[name]" placeholder="Merchant Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="table-responsive col-sm-4">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td>
+              <a href="/merchants">
+                <button type="button" class="btn btn-outline-danger">Cancel</button>
+              </a>
+
+              <form action></td>
+              <td>
+                <button type="submit" class="btn btn-outline-success">Submit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>

@@ -1,8 +1,50 @@
-<form action="/items/<%= @item.id %>" method="post">
-  <p>edit</p>
+<div class="jumbotron">
+  <h1 class="display-6" id="merchant-jumbo-title">Edit
+    <%= @item.name%></h1>
+  <hr class="my-4">
+</div>
+
+<form class="form-horizontal" action="/items/<%= @item.id %>" method="POST">
   <input type="hidden" value="PUT" name="_method"/>
-  <input type="text" value="<%= @item.title %>" name="item[title]"/>
-  <input type="text" value="<%= @item.description %>" name="item[description]"/>
-  <input type="text" value="<%= @item.price %>" name="item[price]"/>
-  <input type="text" value="<%= @item.image %>" name="item[image]"/>
+
+    <label for="basic-url">Merchants</label>
+    <div class="input-group mb-3">
+      <select class="form-control" id="sel1" name=item[merchant]>
+        <% @merchants.each do |merchant| %>
+          <option>
+            <%= merchant.name %></option>
+        <% end %>
+
+      </select>
+
+    </div>
+
+    <label for="basic-url">Name</label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Item Name" name=item[name]>
+    </div>
+
+    <label for="basic-url">Description</label>
+    <div class="input-group mb-3">
+      <textarea class="form-control" aria-label="description" name=item[description]></textarea>
+    </div>
+
+    <label for="basic-url">Price</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+      </div>
+      <input type="text" class="form-control" aria-label="Amount" name=item[unit_price]>
+    </div>
+
+    <label for="basic-url">Image URL</label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Title" name=item[image]>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+    <button type="submit" class="btn btn-outline-success">Save changes</button>
 </form>
+

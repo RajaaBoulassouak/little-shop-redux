@@ -1,16 +1,150 @@
-<form action="/merchants/new">
-  <input type="submit" value="Create a New Merchant"/>
-</form>
+<div class="jumbotron bg-secondary">
+  <h1 class="display-4" id="merchant-jumbo-title" style='color: white;'>Merchants</h1>
+  <hr class="my-4" style="border-color: white;">
+  <p class="lead">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createModal">
+      Create a New Merchant
+    </button>
+  </p>
+</div>
 
-<% @merchants.each do |merchant| %>
-     <ul>
-       <li><a href="/merchants/<%=merchant.id%>" target="_self"><%=merchant.name%></a></li>
-     </ul>
-     <form action="/merchants/<%= merchant.id %>/edit">
-       <input type="submit" value="Edit" />
-     </form>
-     <form action="/merchants/<%= merchant.id %>" method="POST">
-       <input type="hidden" value="DELETE" name="_method"/>
-       <input type="submit" value="delete"/>
-     </form>
-   <% end %>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="/merchants?page=<%= @prior_page %>" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/merchants">1...</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="/merchants?page=<%= @current_page %>"><%= @current_page %>
+        <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" href="/merchants?page=<%= @last_page %>">...<%= @last_page %>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/merchants?page=<%= @next_page %>">Next</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+
+    <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <% @merchants.each do |merchant| %>
+            <tr>
+              <th scope="row"></th>
+              <td>
+                <a href="/merchants/<%=merchant.id%>" target="_self" class="h6"><%=merchant.name%></a>
+              </td>
+              <td>
+                <!-- Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit
+                          <%= merchant.name %></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form class="form-horizontal" action="/merchants/<%= merchant.id %>" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="modal-body">
+                          <input type="text" class="form-control" name="merchant[name]" placeholder="Merchant Name">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                          <a class="btn btn-secondary" href="/merchants/ <%= merchant.id %>/edit" role="button" target="_blank">Edit in New Window</a>
+                          <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal">
+                  Edit
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
+                  Delete
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p style="color:red; font-weight:bold; display:inline;">
+                          WARNING!
+                        </p>
+                        <p style="display: inline;">This will permenantly delete</p>
+                        <p style="font-weight:bold; display:inline;">
+                          <%= merchant.name %>
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <form action="/merchants/<%= merchant.id %>" method="post">
+                          <input type="hidden" value="DELETE" name="_method"/>
+                          <button type="submit" class="btn btn-danger">DELETE</button>
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="col-sm-1"></div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createModalLabel">
+          Create a New Merchant
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" action="/merchants" method="POST">
+        <div class="modal-body">
+          <input type="text" class="form-control" name="merchant[name]" placeholder="Merchant Name">
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-secondary" target="_blank" href="/merchants/new" role="button">Create in New Window</a>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-outline-success">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

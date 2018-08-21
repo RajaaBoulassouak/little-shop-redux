@@ -1,24 +1,30 @@
-<h1> <%= @invoice.merchant_id %> </h1>
-<p> <%= @invoice.status %>
-</p>
+  <div class="jumbotron">
+  <h1 class="display-4", id="invoice-jumbo-title">Invoice: <%= @invoice.id %> - <%= @invoice.status.capitalize %> </h1>
+  <hr class="my-4">
+  <p class="lead">
+    <div class="table-responsive col-sm-4">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td>
 
-<div>
-  <table style="width:100%">
-  <tr>
-    <th> Item ID </th>
-    <th> Item Title </th>
-    <th> Quantity </th>
-    <th> Unit Price </th>
-  </tr>
-  <% @invoice_items.each do |invoice_item| %>
-    <tr>
-      <td> <%= invoice_item.item_id %>  </td>
-       <% require 'pry'; binding.pry %>
-      <td> <%= invoice_item.item.name %></td>
-      <td><%= invoice_item.quantity %></td>
-      <td><%= invoice_item.item.unit_price %></td>
-      <td><%= invoice_item.item.unit_price * invoice_item.quantity %></td>
-    </tr>
-  <% end %>
-</table>
+          </td>
+          <td>
+            <a href="/invoices/<%= @invoice.id %>/edit"><button type="button" class="btn btn-outline-warning btn-sm">Edit</button></a>
+
+            <form action=>
+          </td>
+          <td><form action="/invoices/<%= @invoice.id %>" method="POST">
+                <input type="hidden" value="DELETE" name="_method"/>
+              <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger"/>
+              </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </p>
 </div>
+
+<a href="/merchants/<%= @invoice.merchant.id %>" target="_self" class="h1"><h1><%= @invoice.merchant.name %></h1></a>
