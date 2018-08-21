@@ -1,0 +1,8 @@
+<h1> Item Dashboard </h1>
+
+<ul>
+  <li>total number of items: <%= @items.count %> </li>
+  <li>average price for an item: <%= @items.average_price.round(2) %></li>
+  <li>newest item added: <%= @items.newest_item_created.first.name %></li>
+  <li>oldest item added: <%= @items.oldest_item_created.first.name %></li>
+</ul>
