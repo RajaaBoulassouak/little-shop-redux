@@ -55,6 +55,11 @@ class LittleShopApp < Sinatra::Base
     Item.create(params[:item])
     redirect '/items'
   end
+  
+  get '/items-dashboard' do
+    @items = Item.all
+    erb :'items/dashboard'
+  end
 
   put '/items/:id' do |id|
     Item.update(id.to_i, params[:item])
@@ -79,6 +84,15 @@ class LittleShopApp < Sinatra::Base
   get '/invoices' do
     @invoices = Invoice.all
     erb :'invoices/index'
+  end
+
+  get '/invoices/invoice_dashboard' do
+    @percent_by_status = Invoice.percent_by_status
+    @max_by_unit_price = Invoice.max_by_unit_price
+    @min_by_unit_price = Invoice.min_by_unit_price
+    @max_by_quantity = Invoice.max_by_quantity
+    @min_by_quantity = Invoice.min_by_quantity
+    erb :'invoices/dashboard'
   end
 
   get '/invoices/:id/edit' do

@@ -1,0 +1,18 @@
+<h1> Distribution by Status</h1>
+  <table>
+  <tr>
+    <th> Status </th>
+    <th> Percent </th>
+  </tr>
+    <% @percent_by_status.each do |status| %>
+  <tr>
+    <td> <%= status.status %> </td>
+    <td> <%= status.percentage %> </td>
+  </tr>
+<% end %>
+</table>
+
+<h3> Max by Unit Price: <%= @max_by_unit_price %> </h3>
+<h3> Min by Unit Price: <%= @min_by_unit_price %> </h3>
+<h3> Max by Quantity: <%= @max_by_unit_price %> </h3>
+<h3> Min by Quantity: <%= @min_by_quantity %> </h3>
