@@ -1,7 +1,11 @@
 class LittleShopApp < Sinatra::Base
 
   get '/merchants' do
-    @merchants = Merchant.all
+    @current_page = (params[:page] ||= 1).to_i
+    @last_page = Merchant.max_page
+    @current_page > 1 ? @prior_page = (@current_page - 1) : @prior_page = @current_page
+    @next_page = @current_page + 1
+    @merchants = Merchant.paginate(@current_page)
     erb :'merchants/index'
   end
 
@@ -15,7 +19,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/merchants/:id/edit' do
-    @merchant = Merchant.find_by( id: params[:id] )
+    @merchant = Merchant.find( params[:id] )
     erb :'merchants/edit'
   end
 
@@ -25,7 +29,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/merchants/:id' do
-    @merchant = Merchant.find_by( id: params[:id] )
+    @merchant = Merchant.find( params[:id] )
     erb :'merchants/show'
   end
 
@@ -35,7 +39,12 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/items' do
-    @items = Item.all
+    @merchants = Merchant.all.order(:name)
+    @current_page = (params[:page] ||= 1).to_i
+    @last_page = Item.maxpage
+    @current_page > 1 ? @prior_page = (@current_page - 1) : @prior_page = @current_page
+    @next_page = @current_page + 1
+    @items = Item.shard(@current_page)
     erb :'items/index'
   end
 
@@ -44,11 +53,28 @@ class LittleShopApp < Sinatra::Base
   end
 
   post '/items' do
-    Item.create(params[:item])
-    redirect '/items'
+    create_details = params[:item]
+    merchant_id = Merchant.find_by(name: create_details[:merchant])
+    Item.create(name: create_details[:name],
+                description: create_details[:description],
+                unit_price: create_details[:unit_price].to_i,
+                merchant_id: merchant_id.id,
+                image: create_details[:image])
+    max_id = Item.all.maximum(:id)
+    redirect "/items/#{max_id}"
   end
 
   put '/items/:id' do |id|
+    update_details = params[:item]
+    merchant_id = Merchant.find_by(name: update_details[:merchant])
+    Item.update(id.to_i,
+                name: update_details[:name],
+                description: update_details[:description],
+                unit_price: update_details[:unit_price].to_i,
+                merchant_id: merchant_id.id,
+                image: update_details[:image])
+    redirect "/items/#{id}"
+
     Item.update(id.to_i, params[:item])
     redirect "items/#{id}"
   end
@@ -59,6 +85,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/items/:id/edit' do
+    @merchants = Merchant.all
     @item = Item.find(params[:id])
     erb :'items/edit'
   end
@@ -69,7 +96,12 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/invoices' do
-    @invoices = Invoice.all
+    @statuses = Invoice.statuses
+    @current_page = (params[:page] ||= 1).to_i
+    @last_page = Invoice.maxpage
+    @current_page > 1 ? @prior_page = (@current_page - 1) : @prior_page = @current_page
+    @next_page = @current_page + 1
+    @invoices = Invoice.paginate(@current_page)
     erb :'invoices/index'
   end
 
@@ -83,7 +115,8 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/invoices/:id/edit' do
-    @invoice = Invoice.find_by( id: params[:id] )
+    @invoice = Invoice.find( params[:id] )
+    @statuses = Invoice.statuses
     erb :'invoices/edit'
   end
 

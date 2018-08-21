@@ -23,9 +23,9 @@ RSpec.describe 'Invoices Index Page' do
       expect(page).to have_content(@invoice_1.status)
     end
     it 'should show quantity for each item' do
-    invoice = Invoice.create( customer_id: 8,
-                              merchant_id: 4,
-                              status: 'pending')
+    Invoice.create( customer_id: 8,
+                    merchant_id: 4,
+                    status: 'pending')
     invoice_item = InvoiceItem.create(item_id: 1,
                                       invoice_id: 1,
                                       quantity: 1,
