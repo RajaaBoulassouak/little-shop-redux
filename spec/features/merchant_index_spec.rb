@@ -50,5 +50,90 @@ RSpec.describe 'Merchants Index Page' do
       click_button('Submit')
       expect(page).to have_content("Joanne or whatever")
     end
+    
+    it "should count each merchant's items" do
+      item_1 = @merchant_1.items.create( id:          1,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:       200,
+                                         image:       'path/to/image.jpg')
+      item_2 = @merchant_1.items.create( id:          2,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:       200,
+                                         image:       'path/to/image.jpg')
+      item_3 = @merchant_1.items.create( id:          3,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:       200,
+                                         image:       'path/to/image.jpg')   
+    
+      visit 'merchants/dashboard'
+    
+      expect(page).to have_content("Item Count: 3")
+    end
+    
+    it "should calculate merchants item average price" do
+      item_1 = @merchant_1.items.create( id:          1,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:  100,
+                                         image:       'path/to/image.jpg')
+      item_2 = @merchant_1.items.create( id:          2,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:  300,
+                                         image:       'path/to/image.jpg')
+      item_3 = @merchant_1.items.create( id:          3,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:  400,
+                                         image:       'path/to/image.jpg')  
+      
+      visit 'merchants/dashboard'
+    
+      expect(page).to have_content("Average Item Price: #{@merchant_1.average_item_price}")
+    end
+    
+    it "should calculate merchants total items price" do
+      item_1 = @merchant_1.items.create( id:          1,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:  100,
+                                         image:       'path/to/image.jpg')
+      item_2 = @merchant_1.items.create( id:          2,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:  300,
+                                         image:       'path/to/image.jpg')
+      item_3 = @merchant_1.items.create( id:          3,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:   400,
+                                         image:       'path/to/image.jpg')  
+    
+      visit 'merchants/dashboard'
+    
+      expect(page).to have_content("Total Cost of Items: #{@merchant_1.total_cost_of_items}")
+    end
+    
+    it "should return merchant with highest price item" do
+      item_1 = @merchant_1.items.create( id:          1,
+                                         name:        "item_1",
+                                         description: "i'm an item!",
+                                         unit_price:  300,
+                                         image:       'path/to/image.jpg')
+      item_2 = @merchant_2.items.create( id:          2,
+                                         name:        "item_2",
+                                         description: "i'm an item!",
+                                         unit_price:  500,
+                                         image:       'path/to/image.jpg')
+      visit 'merchants/dashboard'
+     
+      save_and_open_page
+   
+      expect(page).to have_content("Merchant With Highest Price Item: #{Item.merchant_with_highest_price_item}")
+    end 
+    
   end
 end

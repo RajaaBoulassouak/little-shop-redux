@@ -1,0 +1,12 @@
+<ul>
+  <li> Merchant With Highest Price Item: <%= @items.merchant_with_highest_price_item %></li>
+</ul>
+
+<% @merchants.each do |merchant| %>
+  <ul> 
+    <li><a href="/merchants/<%=merchant.id%>" target="_self"><%= merchant.name %></a></li>
+    <li> Item Count: <%= merchant.items.count %></li>
+    <li> Avg Item Price: <%= merchant.average_item_price %></li>
+    <li> Total Cost of Items: <%= merchant.total_cost_of_items %></li>
+  </ul>
+<% end %>
