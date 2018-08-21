@@ -1,5 +1,8 @@
 class Item < ActiveRecord::Base
-  has_many :invoice_items
+  belongs_to :merchant
+  has_many   :invoice_items
+  has_many   :invoices, through: :invoice_items
+
   validates :name,       presence: true
   validates :description, presence: true
   validates :unit_price,       presence: true
@@ -25,7 +28,7 @@ class Item < ActiveRecord::Base
   end
 
   def formatted_price
-      ('$%.2f' % (self.unit_price / 60)).to_s
+      ('$%.2f' % (self.unit_price / 100)).to_s
   end
 
 end

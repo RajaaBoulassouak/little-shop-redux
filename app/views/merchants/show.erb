@@ -73,3 +73,26 @@
     </div>
   </div>
 </div>
+</div>
+<div class="">
+
+
+<% @items.each do |group| %>
+  <div class="card-deck">
+    <% group.each do |item| %>
+      <div class="card">
+        <img class="card-img-top img-thumbnail" src="img/<%= item.image %>" alt="Card image cap">
+        <div class="card-body">
+          <a href="/items/<%= item.id %>">
+            <h5 class="card-title"><%= item.name %></h5>
+          </a>
+          <p class="card-text"><%= item.formatted_price %></p>
+        </div>
+      </br>
+    </div>
+
+  <% end %>
+</div>
+</br>
+<% end %>
+</div>

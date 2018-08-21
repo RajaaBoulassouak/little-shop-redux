@@ -137,5 +137,12 @@ RSpec.describe 'Merchants Index Page' do
 
        expect(current_path).to eq('/merchants')
     end
+    it 'should render multiple merchants' do
+      visit '/merchants'
+
+      expect(page).to have_content("Homer Simpson")
+      expect(page).to have_content("Marge Simpson")
+      expect(page).to have_content("Bart Simpson")
+    end
   end
 end

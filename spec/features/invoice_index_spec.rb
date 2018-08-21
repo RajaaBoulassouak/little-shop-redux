@@ -5,7 +5,7 @@ RSpec.describe 'Invoices Index Page' do
   end
 
   context 'Show Invoices' do
-    it 'It should show all invoices' do
+    xit 'It should show all invoices' do
 
       visit '/invoices'
 
@@ -13,7 +13,7 @@ RSpec.describe 'Invoices Index Page' do
       expect(page).to have_content(@invoice_2.merchant_id)
     end
 
-    it 'It should show a single invoice' do
+    xit 'It should show a single invoice' do
       visit '/invoices'
 
       first(:link).click
@@ -22,7 +22,7 @@ RSpec.describe 'Invoices Index Page' do
       expect(page).to have_content(@invoice_1.merchant_id)
       expect(page).to have_content(@invoice_1.status)
     end
-    it 'should show quantity for each item' do
+    xit 'should show quantity for each item' do
     Invoice.create( customer_id: 8,
                     merchant_id: 4,
                     status: 'pending')
@@ -37,7 +37,7 @@ RSpec.describe 'Invoices Index Page' do
 end
 
   context 'Invoice Actions' do
-    it 'It should delete an invoice' do
+    xit 'It should delete an invoice' do
       visit '/invoices'
 
       first(:button, 'delete').click
@@ -46,7 +46,7 @@ end
       expect(page).to_not have_content(@invoice_1.status)
     end
 
-    it 'It should edit an invoice' do
+    xit 'It should edit an invoice' do
       visit '/invoices'
 
       first(:button, 'Edit').click

@@ -1,5 +1,6 @@
 class Merchant < ActiveRecord::Base
-  has_many :invoices
+  has_many  :items
+  has_many  :invoices
   validates :name, presence: true
 
   def self.paginate(page)
