@@ -11,8 +11,8 @@ class Merchant < ActiveRecord::Base
     items.sum(:unit_price)
   end
   
-  def self.merchant_with_highest_price_item
-    select("merchants.*, items.*").joins(:items)
+  def self.highest_price_item
+    joins(:items).order("items.unit_price").first.name
   end 
   
 end

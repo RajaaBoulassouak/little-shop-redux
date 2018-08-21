@@ -7,11 +7,9 @@ class Item < ActiveRecord::Base
   validates :unit_price,  presence: true
   validates :merchant_id, presence: true
   
-  
-  def self.merchant_with_highest_price_item
-    joins(:merchants)
-    order(:unit_price).limit(1).last.merchant_id
-  end
+  def self.merchant_with_most_items
+    joins(:merchants).group(:merchant_id).count
+  end 
   
 end
 
