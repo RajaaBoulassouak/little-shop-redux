@@ -7,7 +7,7 @@ RSpec.describe 'Merchant Show Page' do
                               description: "Delicious yet watery beer",
                               unit_price: 500,
                               merchant_id: 1,
-                              image: '/')
+                              image: '/path/to/file')
 
   end
 
@@ -21,11 +21,24 @@ RSpec.describe 'Merchant Show Page' do
     end
 
     it 'has a delete button' do
-      visit 'merchants/1'
+      visit '/merchants/1'
 
       click_on('Delete')
 
-      expect(page).to have_content('Warning')
+      expect(page).to have_content('WARNING')
+    end
+    it 'renders items' do
+      visit '/merchants/1'
+
+      expect(page).to have_content('Duff Beer')
+      expect(page).to have_content('$5.00')
+    end
+    it 'clicks through to an item' do
+      visit '/merchants/1'
+
+      click_on("Duff Beer")
+
+      expect(current_path).to eq('/items/1')
     end
   end
 end

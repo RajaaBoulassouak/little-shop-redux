@@ -110,8 +110,8 @@ class LittleShopApp < Sinatra::Base
     @percent_by_status = Invoice.percent_by_status
     @max_by_unit_price = Invoice.max_by_unit_price
     @min_by_unit_price = Invoice.min_by_unit_price
-    @max_by_quantity = Invoice.max_by_quantity
-    @min_by_quantity = Invoice.min_by_quantity
+    @max_by_quantity = InvoiceItem.max_by_quantity
+    @min_by_quantity = InvoiceItem.min_by_quantity
     erb :'invoices/dashboard'
   end
 

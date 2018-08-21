@@ -34,12 +34,4 @@ class Invoice < ActiveRecord::Base
   def self.min_by_unit_price
     joins(:invoice_items).order("invoice_items.unit_price asc").first.id
   end
-
-  def self.max_by_quantity
-    joins(:invoice_items).order("invoice_items.quantity desc").first.id
-  end
-
-  def self.min_by_quantity
-    joins(:invoice_items).order("invoice_items.quantity asc").first.id
-  end
 end

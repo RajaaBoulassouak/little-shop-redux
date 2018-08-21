@@ -126,6 +126,7 @@ RSpec.describe 'Merchants Index Page' do
       expect(page).to have_content('WARNING')
      end
     it 'should delete a record from the modal' do
+      visit '/merchants'
 
        within '#merchant-row-2' do
           click_on('Delete')
