@@ -6,10 +6,5 @@ class Item < ActiveRecord::Base
   validates :description, presence: true
   validates :unit_price,  presence: true
   validates :merchant_id, presence: true
-  
-  def self.merchant_with_most_items
-    joins(:merchants).group(:merchant_id).count
-  end 
-  
 end
 

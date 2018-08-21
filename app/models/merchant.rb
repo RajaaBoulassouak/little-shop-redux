@@ -12,8 +12,12 @@ class Merchant < ActiveRecord::Base
   end
   
   def self.highest_price_item
-    joins(:items).order("items.unit_price").first.name
+    joins(:items).order("items.unit_price desc").first.name
   end 
+  
+  def self.merchant_with_most_items
+    find(Item.group(:merchant_id).order("count_all").count.keys.last).name
+  end
   
 end
 

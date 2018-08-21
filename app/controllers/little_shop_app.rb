@@ -3,9 +3,8 @@ class LittleShopApp < Sinatra::Base
 
   get '/merchants/dashboard' do
     @merchants = Merchant.all
-    @items = Item.all
     @highest_price_item = Merchant.highest_price_item
-    @merchant_with_most_items = Item.merchant_with_most_items
+    @merchant_with_most_items = Merchant.merchant_with_most_items
     erb :'merchants/dashboard'
   end
 

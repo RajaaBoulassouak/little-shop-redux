@@ -68,9 +68,7 @@ RSpec.describe 'Merchants Index Page' do
                                          unit_price:       200,
                                          image:       'path/to/image.jpg')   
     
-      visit 'merchants/dashboard'
-      
-      save_and_open_page
+      visit '/merchants/dashboard'
     
       expect(page).to have_content("Item Count: 3")
     end
@@ -79,7 +77,7 @@ RSpec.describe 'Merchants Index Page' do
       item_1 = @merchant_1.items.create( id:          1,
                                          name:        "item_1",
                                          description: "i'm an item!",
-                                         unit_price:  100,
+                                         unit_price:  200,
                                          image:       'path/to/image.jpg')
       item_2 = @merchant_1.items.create( id:          2,
                                          name:        "item_1",
@@ -92,16 +90,15 @@ RSpec.describe 'Merchants Index Page' do
                                          unit_price:  400,
                                          image:       'path/to/image.jpg')  
     
-      visit 'merchants/dashboard'
-    
-      expect(page).to have_content("Average Item Price: #{@merchant_1.average_item_price}")
+      visit '/merchants/dashboard'    
+      expect(page).to have_content("Avg Item Price: 300.0")
     end
     
     it "should calculate merchants total items price" do
       item_1 = @merchant_1.items.create( id:          1,
                                          name:        "item_1",
                                          description: "i'm an item!",
-                                         unit_price:  100,
+                                         unit_price:  200,
                                          image:       'path/to/image.jpg')
       item_2 = @merchant_1.items.create( id:          2,
                                          name:        "item_1",
@@ -114,7 +111,8 @@ RSpec.describe 'Merchants Index Page' do
                                          unit_price:   400,
                                          image:       'path/to/image.jpg')  
     
-      visit 'merchants/dashboard'
+      visit '/merchants/dashboard'
+      save_and_open_page
     
       expect(page).to have_content("Total Cost of Items: #{@merchant_1.total_cost_of_items}")
     end
@@ -131,9 +129,11 @@ RSpec.describe 'Merchants Index Page' do
                                          unit_price:  500,
                                          image:       'path/to/image.jpg')
     
-      visit 'merchants/dashboard'
+      visit '/merchants/dashboard'
+      
+      save_and_open_page
     
-      expect(page).to have_content("Merchant With Highest Price Item: #{Merchant.highest_price_item}")
+      expect(page).to have_content("Merchant With Highest Price Item: #{@merchant_2.name}")
     end
     
     it "should return merchant with most items" do
@@ -153,9 +153,9 @@ RSpec.describe 'Merchants Index Page' do
                                          unit_price:  500,
                                          image:       'path/to/image.jpg')
     
-      visit 'merchants/dashboard'
+      visit '/merchants/dashboard'
     
-      expect(page).to have_content("Merchant With Most Items: #{Item.merchant_with_most_items}")
+      expect(page).to have_content("Merchant With Most Items: #{@merchant_1.name}")
     end
     
   end
