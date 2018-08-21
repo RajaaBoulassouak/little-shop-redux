@@ -6,7 +6,6 @@ class Invoice < ActiveRecord::Base
   validates :merchant_id, presence: true
   validates :status,      presence: true
 
-
   def self.percent_by_status
     select("status, concat(ROUND(count(id)::decimal/(select count(id) from invoices)*100, 2)::text, '%') as percentage").group(:status).order(:status)
   end

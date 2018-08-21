@@ -18,6 +18,5 @@ class Item < ActiveRecord::Base
   def self.newest_item_created
     order(created_at: :desc).limit(1)
   end
-
 end
 

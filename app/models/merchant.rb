@@ -18,7 +18,6 @@ class Merchant < ActiveRecord::Base
   def self.merchant_with_most_items
     find(Item.group(:merchant_id).order("count_all").count.keys.last).name
   end
-  
 end
 
 
