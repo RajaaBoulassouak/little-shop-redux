@@ -28,12 +28,12 @@ before(:each) do
   it 'shows average item price' do
     visit '/items-dashboard'
 
-    expect(page).to have_content('average price for an item: 5')
+    expect(page).to have_content(5)
   end
 
   it 'it shows total number of items' do
     visit '/items-dashboard'
-    expect(page).to have_content('total number of items: 3')
+    expect(page).to have_content(3)
   end
 end
 end
