@@ -35,6 +35,5 @@ before(:each) do
     visit '/items-dashboard'
     expect(page).to have_content('total number of items: 3')
   end
-
 end
 end
