@@ -119,10 +119,10 @@
   <tbody>
     <tr>
       <%  @invoice_items.each do |invoice_item| %>
-      <td> <%= invoice_item.item_id %></td>
+      <td> <a href="/items/<%= invoice_item.item_id %>" target="_self"><%= invoice_item.item_id %></a></td>
       <td> <%= Item.find(invoice_item.item_id).name %> </td>
       <td> <%=  invoice_item.quantity %> </td>
-      <td> <%=  invoice_item.unit_price %> </td>
+      <td> <%=  invoice_item.formatted_price%> </td>
     </tr>
   <% end %>
   </tbody>
