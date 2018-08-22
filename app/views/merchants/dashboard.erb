@@ -33,7 +33,8 @@
           <h5 class="card-title"> Item Count: </h5>
           <p class="card-text"><%= merchant.items.count %></p>
           <h5 class="card-title"> Avg Item Price: </h5>
-          <p class="card-text"><%= merchant.average_item_price.round(2) %></p>
+          <p class="card-text"><%= merchant.average_item_price %></p>
+
           <h5 class="card-title"> Total Cost of Items: </h5>
           <p class="card-text"><%= merchant.total_cost_of_items.round(2) %></p>
         </div>

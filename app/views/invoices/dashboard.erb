@@ -1,18 +1,56 @@
-<h1> Distribution by Status</h1>
-  <table>
-  <tr>
-    <th> Status </th>
-    <th> Percent </th>
-  </tr>
-    <% @percent_by_status.each do |status| %>
-  <tr>
-    <td> <%= status.status %> </td>
-    <td> <%= status.percentage %> </td>
-  </tr>
-<% end %>
-</table>
+<div class="jumbotron bg-secondary text-center">
+  <h1 class="display-4" id="merchant-jumbo-title" style='color: white;'>Invoice Dashboard</h1>
+  <hr class="my-4" style="border-color: white;">
+  <p class="lead">
+  </p>
+</div>
 
-<h3> Max by Unit Price: <%= @max_by_unit_price %> </h3>
-<h3> Min by Unit Price: <%= @min_by_unit_price %> </h3>
-<h3> Max by Quantity: <%= @max_by_unit_price %> </h3>
-<h3> Min by Quantity: <%= @min_by_quantity %> </h3>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card-deck">
+          <div class="card">
+            <div class="card-body">
+              <h1> Distribution by Status</h1>
+                <table>
+                <tr>
+                  <th> Status </th>
+                  <th> Percent </th>
+                </tr>
+                  <% @percent_by_status.each do |status| %>
+                <tr>
+                  <td> <%= status.status %> </td>
+                  <td> <%= status.percentage %> </td>
+                </tr>
+              <% end %>
+              </table>
+            </div>
+            </br>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card-deck">
+          <div class="card">
+            <div class="card-body">
+              <h4> Max by Unit Price: <%= @max_by_unit_price %> </h4>
+              <h4> Min by Unit Price: <%= @min_by_unit_price %> </h4>
+            </div>
+            </br>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card-deck">
+          <div class="card">
+            <div class="card-body">
+              <h4> Max by Quantity: <%= @max_by_unit_price %> </h4>
+              <h4> Min by Quantity: <%= @min_by_quantity %> </h4>
+            </div>
+            </br>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ class LittleShopApp < Sinatra::Base
     erb :'merchants/index'
   end
 
-  get '/merchants/dashboard' do
+  get '/merchants-dashboard' do
     @merchants = Merchant.all
     @merchants_slices = Merchant.all.each_slice(4)
     @highest_price_item = Merchant.highest_price_item
@@ -116,7 +116,7 @@ class LittleShopApp < Sinatra::Base
     erb :'invoices/index'
   end
 
-  get '/invoices/invoice_dashboard' do
+  get '/invoices_dashboard' do
     @percent_by_status = Invoice.percent_by_status
     @max_by_unit_price = Invoice.max_by_unit_price
     @min_by_unit_price = Invoice.min_by_unit_price
@@ -148,4 +148,5 @@ class LittleShopApp < Sinatra::Base
     Invoice.destroy(id.to_i)
     redirect '/invoices'
   end
+
 end
