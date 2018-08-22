@@ -4,6 +4,8 @@ require './app/models/invoice.rb'
 require './app/models/invoice_item.rb'
 require 'csv'
 
+images = Dir.entries("app/public/img")
+
 CSV.foreach('./data/merchants.csv', headers: true, header_converters: :symbol) do |merchant|
   Merchant.create(id: merchant[:id],
                   name: merchant[:name],
@@ -15,7 +17,7 @@ CSV.foreach('./data/items.csv', headers: true, header_converters: :symbol) do |i
               name: item[:name],
               description: item[:description],
               unit_price: item[:unit_price],
-              image: item[:image],
+              image: images.sample,
               merchant_id: item[:merchant_id],
               created_at: item[:created_at],
               updated_at: item[:updated_at])

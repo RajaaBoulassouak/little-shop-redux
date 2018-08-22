@@ -1,24 +1,129 @@
-<h1> <%= @invoice.merchant_id %> </h1>
-<p> <%= @invoice.status %>
-</p>
+  <div class="jumbotron">
+  <h1 class="display-4", id="invoice-jumbo-title">Invoice: <%= @invoice.id %> - <%= @invoice.status.capitalize %> </h1>
+  <hr class="my-4">
+  <p class="lead">
+    <div class="table-responsive col-sm-4">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td>
 
-<div>
-  <table style="width:100%">
-  <tr>
-    <th> Item ID </th>
-    <th> Item Title </th>
-    <th> Quantity </th>
-    <th> Unit Price </th>
-    <th> Total Price </th>
-  </tr>
-  <% @invoice_items.each do |invoice_item| %>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#editModal">
+              Edit
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
+              Delete
+            </button>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </p>
+</div>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit
+          <%= @invoice.id %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" action="/invoices/<%=@invoice.id %>" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="modal-body">
+
+          <div class="form-group col-sm-10 ">
+            <label for="sel1">Merchant:</label>
+            <select class="form-control" id="sel1" disabled="disabled">
+              <option class="disabled">
+                <%= @invoice.merchant.name %>
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-10">
+              <div class="form-group">
+                <label for="sel1">Status:</label>
+                <select class="form-control" name='invoice[status]'>
+                  <% @statuses.each do |status| %>
+                    <option><%= status %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" id='delete-footer'>
+          <button type="button" id="edit-invoice-cancel" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-outline-secondary" href="/invoices/<%= @invoice.id %>/edit" role="button" target="_blank">Edit in New Window</a>
+          <button type="submit" class="btn btn-outline-success">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Invoice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color:red; font-weight:bold; display:inline;">
+          WARNING!
+        </p>
+        <p style="display: inline;">This will permenantly delete</p>
+        <p style="font-weight:bold; display:inline;">
+          <%= @invoice.id %>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+        <form action="/invoices/<%= @invoice.id %>" method="post">
+          <input type="hidden" value="DELETE" name="_method"/>
+          <button type="submit" class="btn btn-outline-danger">DELETE</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="/merchants/<%= @invoice.merchant.id %>" target="_self" class="h1" id="invoice-merchant-link"><h1><%= @invoice.merchant.name %></h1></a>
+
+
+ <table class="table table-bordered">
+  <thead>
     <tr>
-      <td> <%= invoice_item.item_id %>  </td>
-      <td> <%= invoice_item.item.name %></td>
-      <td><%= invoice_item.quantity %></td>
-      <td><%= invoice_item.item.unit_price %></td>
-      <td><%= invoice_item.item.unit_price * invoice_item.quantity %></td>
+      <th scope="col">Item ID</th>
+      <th scope="col">Item Title</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Unit Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%  @invoice_items.each do |invoice_item| %>
+      <td> <%= invoice_item.item_id %></td>
+      <td> <%= Item.find(invoice_item.item_id).name %> </td>
+      <td> <%=  invoice_item.quantity %> </td>
+      <td> <%=  invoice_item.unit_price %> </td>
     </tr>
   <% end %>
+  </tbody>
 </table>
-</div>

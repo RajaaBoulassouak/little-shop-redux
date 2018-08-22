@@ -1,6 +1,70 @@
-<form action="/invoices/<%= @invoice.id %>" method="post">
-  <p> edit </p>
-  <input type="hidden" name="_method" value="PUT"/>
-  <input type="text" value="<%= @invoice.status %>" name="invoice[status]"/>  
-  <input type="submit" value='Submit' />
+<div class="jumbotron">
+  <h1 class="display-4", id="invoice-jumbo-title">Invoice: <%=@invoice.id%> - <%= @invoice.status %></h1>
+  <hr class="my-4">
+</div>
+
+<div class="form-group col-sm-10 " >
+  <label for="sel1">Merchant:</label>
+  <select class="form-control" id="sel1" disabled>
+    <option class="disabled"> <%= @invoice.merchant.name %> </option>
+  </select>
+</div>
+
+<form class="form-horizontal" action="/invoices/<%= @invoice.id %>" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  <div class="form-group">
+    <div class="col-sm-10">
+      <div class="form-group">
+  <label for="sel1">Status:</label>
+  <select class="form-control" name='invoice[status]'>
+    <% @statuses.each do |status| %>
+    <option><%= status %></option>
+  <% end %>
+  </select>
+</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="table-responsive col-sm-d4">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td>
+
+          </td>
+          <td>
+            <a href="/invoices"><button type="button" class="btn btn-outline-danger">Cancel</button></a>
+
+            <form action=>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-outline-warning">Update Invoice</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
 </form>
+
+<table class="table table-bordered">
+ <thead>
+   <tr>
+     <th scope="col">Item ID</th>
+     <th scope="col">Item Title</th>
+     <th scope="col">Quantity</th>
+     <th scope="col">Unit Price</th>
+   </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <%  @invoice_items.each do |invoice_item| %>
+       <td> <a href="/items/<%= invoice_item.item_id %> target="_blank"><%= invoice_item.item_id %></a></td>
+     <td> <%= Item.find(invoice_item.item_id).name %> </td>
+     <td> <%=  invoice_item.quantity %> </td>
+     <td> <%=  invoice_item.unit_price %> </td>
+   </tr>
+ <% end %>
+ </tbody>
+</table>

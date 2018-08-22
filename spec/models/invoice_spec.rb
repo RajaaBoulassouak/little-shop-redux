@@ -122,7 +122,7 @@ RSpec.describe Invoice do
                                     unit_price: 200)
 
       expected = 6
-      actual = Invoice.max_by_quantity
+      actual = InvoiceItem.max_by_quantity
       expect(expected).to eq(actual)
     end
     it 'finds the invoice with the lowest quantity' do
@@ -146,7 +146,7 @@ RSpec.describe Invoice do
                                     unit_price: 200)
 
       expected = 4
-      actual = Invoice.min_by_quantity
+      actual = InvoiceItem.min_by_quantity
       expect(expected).to eq(actual)
     end
    end

@@ -1,13 +1,140 @@
-<% @items.each do |item| %>
-  <ul>
-    <li> <%= item.title %> </li>
-    <li> <%= item.description %> </li>
-    <li> <%= item.price %> </li>
-    <li> <%= item.image %> </li>
+<div class="jumbotron bg-secondary">
+  <h1 class="display-4" id="items-jumbo-title" style='color: white;'>Items</h1>
+  <hr class="my-4" style="border-color: white;">
+
+  <p class="lead">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createModal">
+      Create a New Item
+    </button>
+  </p>
+
+</div>
+
+<!-- Pagination Navigation Top -->
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="/items?page=<%= @prior_page %>" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/items">1...</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="/items?page=<%= @current_page %>"><%= @current_page %>
+        <span class="sr-only">(current)</span></a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" href="/items?page=<%= @last_page %>">...<%= @last_page %>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/items?page=<%= @next_page %>">Next</a>
+    </li>
   </ul>
-  <form action="/items/<%= item.id %>" method="post">
-    <input type="hidden" value="DELETE" name="_method"/>
-    <input type="submit" value="delete"/>
-    
-  </form>
+</nav>
+
+<% @items.each do |group| %>
+  <div class="card-deck">
+    <% group.each do |item| %>
+      <div class="card">
+        <img class="card-img-top img-thumbnail" src="img/<%= item.image %>" alt="Card image cap">
+        <div class="card-body">
+          <a href="/items/<%= item.id %>">
+            <h5 class="card-title"><%= item.name %></h5>
+          </a>
+          <p class="card-text"><%= item.formatted_price %></p>
+        </div>
+      </br>
+    </div>
+
+  <% end %>
+</div>
+</br>
 <% end %>
+</div>
+
+<!-- Pagination Navigation Bottom -->
+<nav aria-label="...">
+<ul class="pagination">
+<li class="page-item">
+<a class="page-link" href="/items?page=<%= @prior_page %>" tabindex="-1">Previous</a>
+</li>
+<li class="page-item">
+<a class="page-link" href="/items">1...</a>
+</li>
+<li class="page-item active">
+<a class="page-link" href="/items?page=<%= @current_page %>"><%= @current_page %>
+  <span class="sr-only">(current)</span></a>
+</li>
+
+<li class="page-item">
+<a class="page-link" href="/items?page=<%= @last_page %>">...<%= @last_page %>
+</a>
+</li>
+<li class="page-item">
+<a class="page-link" href="/items?page=<%= @next_page %>">Next</a>
+</li>
+</ul>
+</nav>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+  <h5 class="modal-title" id="createModalLabel">
+    Create a New Item
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form class="form-horizontal" action="/items" method="POST">
+  <div class="modal-body">
+
+    <label for="basic-url">Merchants</label>
+    <div class="input-group mb-3">
+      <select class="form-control" id="sel1" name=item[merchant]>
+        <% @merchants.each do |merchant| %>
+          <option>
+            <%= merchant.name %></option>
+        <% end %>
+
+      </select>
+
+    </div>
+
+    <label for="basic-url">Name</label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Item Name" name=item[name]>
+    </div>
+
+    <label for="basic-url">Description</label>
+    <div class="input-group mb-3">
+      <textarea class="form-control" aria-label="description" name=item[description]></textarea>
+    </div>
+
+    <label for="basic-url">Price</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+      </div>
+      <input type="text" class="form-control" aria-label="Amount" name=item[unit_price]>
+    </div>
+
+    <label for="basic-url">Image URL</label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Title" name=item[image]>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-outline-secondary" target="_blank" href="/items/new" role="button">Create in New Window</a>
+    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+    <button type="submit" class="btn btn-outline-success">Save changes</button>
+  </div>
+</form>
+</div>
+</div>
+</div>

@@ -1,7 +1,8 @@
 RSpec.describe 'Invoices Index Page' do
   before(:each) do
-    @invoice_1 = Invoice.create( customer_id: 8, merchant_id: 4, status: 'pending')
-    @invoice_2 = Invoice.create( customer_id: 5, merchant_id: 9, status: 'pending')
+    @invoice_1 = Invoice.create(id: 12345, customer_id: 8, merchant_id: 1, status: 'pending')
+    @invoice_2 = Invoice.create( customer_id: 5, merchant_id: 1, status: 'pending')
+    Merchant.create(name: 'Homer Simpson')
   end
 
   context 'Show Invoices' do
@@ -16,23 +17,19 @@ RSpec.describe 'Invoices Index Page' do
     it 'It should show a single invoice' do
       visit '/invoices'
 
-      first(:link).click
+      click_link('12345')
 
-      expect(current_path).to eq('/invoices/1')
+      expect(current_path).to eq('/invoices/12345')
       expect(page).to have_content(@invoice_1.merchant_id)
       expect(page).to have_content(@invoice_1.status)
     end
     it 'should show quantity for each item' do
-    item = Item.create( name: 'a',
+    Item.create( name: 'a',
                         description: 'b',
                         unit_price: 1,
-                        merchant_id: 4,
+                        merchant_id: 1,
                         created_at: '2016-01-11 09:34:06 UTC')
 
-
-    invoice = Invoice.create( customer_id: 8,
-                              merchant_id: 4,
-                              status: 'pending')
 
     invoice_item = InvoiceItem.create(item_id: 1,
                                       invoice_id: 1,
@@ -43,27 +40,4 @@ RSpec.describe 'Invoices Index Page' do
     expect(page).to have_content(invoice_item.unit_price)
   end
 end
-
-  context 'Invoice Actions' do
-    it 'It should delete an invoice' do
-      visit '/invoices'
-
-      first(:button, 'delete').click
-
-      expect(page).to_not have_content(@invoice_1.merchant_id)
-      expect(page).to_not have_content(@invoice_1.status)
-    end
-
-    it 'It should edit an invoice' do
-      visit '/invoices'
-
-      first(:button, 'Edit').click
-
-      fill_in "invoice[status]", :with => "shipped"
-      click_button('Submit')
-
-      expect(current_path).to eq('/invoices/1')
-      expect(page).to have_content("shipped")
-    end
-  end
 end
