@@ -23,36 +23,36 @@ RSpec.describe Merchant do
     it "should show each merchant's items" do
       visit '/merchants/dashboard'
 
-      expect(page).to have_content("Item Count: 1")
-      expect(page).to have_content("Item Count: 2")
+      expect(page).to have_content("Item Count:\n1")
+      expect(page).to have_content("Item Count:\n2")
     end
 
     it "should show item average price per merchant" do
       visit '/merchants/dashboard'
       
-      expect(page).to have_content("Avg Item Price: #{@merchant_1.average_item_price}")
-      expect(page).to have_content("Avg Item Price: #{@merchant_2.average_item_price}")
+      expect(page).to have_content("Avg Item Price:\n#{@merchant_1.average_item_price}")
+      expect(page).to have_content("Avg Item Price:\n#{@merchant_2.average_item_price}")
     end
 
     it "should show total items price per merchant" do
       visit '/merchants/dashboard'
 
-      expect(page).to have_content("Total Cost of Items: #{@merchant_1.total_cost_of_items}")
-      expect(page).to have_content("Total Cost of Items: #{@merchant_2.total_cost_of_items}")
+      expect(page).to have_content("Total Cost of Items:\n#{@merchant_1.total_cost_of_items}")
+      expect(page).to have_content("Total Cost of Items:\n#{@merchant_2.total_cost_of_items}")
     end
 
     it "should show merchant with highest price item" do
       visit '/merchants/dashboard'
 
-      expect(page).to have_content("Merchant With Highest Price Item: #{@merchant_2.name}")
-      expect(page).to_not have_content("Merchant With Highest Price Item: #{@merchant_1.name}")
+      expect(page).to have_content("Merchant With Highest Price Item:\n#{@merchant_2.name}")
+      expect(page).to_not have_content("Merchant With Highest Price Item:\n#{@merchant_1.name}")
     end
 
     it "should show merchant with most items" do
       visit '/merchants/dashboard'
 
-      expect(page).to have_content("Merchant With Most Items: #{@merchant_2.name}")
-      expect(page).to_not have_content("Merchant With Most Items: #{@merchant_1.name}")
+      expect(page).to have_content("Merchant With Most Items:\n#{@merchant_2.name}")
+      expect(page).to_not have_content("Merchant With Most Items:\n#{@merchant_1.name}")
     end
   end 
 end

@@ -1,15 +1,44 @@
-<ul>
-  <li> Merchant With Highest Price Item: <%= @highest_price_item %></li>
-  <li> Merchant With Most Items: <%= @merchant_with_most_items %></li>
-</ul>
+<div class="jumbotron bg-secondary">
+  <h1 class="display-4" id="merchant-jumbo-title" style='color: white;'>Merchant Dashboard</h1>
+  <hr class="my-4" style="border-color: white;">
+  <p class="lead">
+  </p>
+</div>
 
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"> Merchant With Highest Price Item: </h5>
+        <h5 class="card-text"><%= @highest_price_item %></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"> Merchant With Most Items: </h5>
+        <h5 class="card-title"><%= @merchant_with_most_items %></h5>
+      </div>
+    </div>
+  </div>
+</div>
 
-<% @merchants.each do |merchant| %>
-  <ul> 
-    <li><a href="/merchants/<%=merchant.id%>" target="_self"><%= merchant.name %></a></li>
-    <li> Item Count: <%= merchant.items.count %></li>
-    <li> Avg Item Price: <%= merchant.average_item_price %></li>
-    <li> Total Cost of Items: <%= merchant.total_cost_of_items %></li>
-  </ul>
+<% @merchants_slices.each do |group| %>
+  <div class="card-deck">
+    <% group.each do |merchant| %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><a href="/merchants/<%=merchant.id%>" target="_self"><%= merchant.name %></a></h5>
+          <h5 class="card-title"> Item Count: </h5>
+          <p class="card-text"><%= merchant.items.count %></p>
+          <h5 class="card-title"> Avg Item Price: </h5>
+          <p class="card-text"><%= merchant.average_item_price.round(2) %></p>
+          <h5 class="card-title"> Total Cost of Items: </h5>
+          <p class="card-text"><%= merchant.total_cost_of_items.round(2) %></p>
+        </div>
+        </br>
+      </div>
+    <% end %>
+  </div>
 <% end %>
-
