@@ -1,5 +1,4 @@
 class LittleShopApp < Sinatra::Base
-
   get '/merchants' do
     @current_page = (params[:page] ||= 1).to_i
     @last_page = Merchant.max_page
@@ -7,6 +6,14 @@ class LittleShopApp < Sinatra::Base
     @next_page = @current_page + 1
     @merchants = Merchant.paginate(@current_page)
     erb :'merchants/index'
+  end
+
+  get '/merchants/dashboard' do
+    @merchants = Merchant.all
+    @merchants_slices = Merchant.all.each_slice(4)
+    @highest_price_item = Merchant.highest_price_item
+    @merchant_with_most_items = Merchant.merchant_with_most_items
+    erb :'merchants/dashboard'
   end
 
   get '/merchants/new' do
@@ -19,7 +26,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/merchants/:id/edit' do
-    @merchant = Merchant.find( params[:id] )
+    @merchant = Merchant.find(params[:id])
     erb :'merchants/edit'
   end
 
@@ -29,7 +36,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/merchants/:id' do
-    @merchant = Merchant.find( params[:id] )
+    @merchant = Merchant.find( params[:id])
     @items = @merchant.items.each_slice(4)
     erb :'merchants/show'
   end
@@ -62,8 +69,12 @@ class LittleShopApp < Sinatra::Base
                 unit_price: create_details[:unit_price].to_i,
                 merchant_id: merchant_id.id,
                 image: create_details[:image])
-    max_id = Item.all.maximum(:id)
-    redirect "/items/#{max_id}"
+    redirect "/items"
+  end
+
+  get '/items-dashboard' do
+    @items = Item.all
+    erb :'items/dashboard'
   end
 
   put '/items/:id' do |id|
@@ -115,7 +126,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/invoices/:id/edit' do
-    @invoice = Invoice.find( params[:id] )
+    @invoice = Invoice.find(params[:id])
     @invoice_items = @invoice.invoice_items
     @statuses = Invoice.statuses
     erb :'invoices/edit'

@@ -21,6 +21,6 @@ RSpec.describe "Item Create Page" do
 
     click_button('Submit')
 
-    expect(current_path).to eq('/items/1')
+    expect(current_path).to eq('/items')
   end
 end

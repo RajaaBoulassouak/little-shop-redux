@@ -1,0 +1,33 @@
+<div class="jumbotron bg-secondary">
+     <h1 class="display-4" id="merchant-jumbo-title" style='color: white;'>Items Dashboard</h1>
+     <hr class="my-4" style="border-color: white;">
+     <p class="lead">
+     </p>
+  </div>
+
+  <div class="card-deck">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Total Number of Items:</h5>
+      <p class="card-text"><%= @items.count %></p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Average Price for Items:</h5>
+      <p class="card-text"><%= @items.average_price.round(2) %></p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Items by Date:</h5>
+      <p class="card-text">Newest Item: <%= @items.newest_item_created.first.name %> </p>
+      <p class="card-text">Oldest Item: <%= @items.oldest_item_created.first.name %> </p>
+    </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </div>

@@ -73,6 +73,7 @@
 
         </div>
         <div class="modal-footer">
+          <a class="btn btn-outline-secondary" href="/items/<%= @item.id %>/edit" target="_blank" >Edit in New Window</a>
           <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
           <button type="submit" id="item-show-edit" class="btn btn-outline-success">Save changes</button>
         </form>
@@ -98,7 +99,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-        <form action="/item/<%= @item.id %>" method="post">
+        <form action="/items/<%= @item.id %>" method="post">
           <input type="hidden" value="DELETE" name="_method"/>
           <button type="submit" class="btn btn-outline-danger">DELETE</button>
         </form>

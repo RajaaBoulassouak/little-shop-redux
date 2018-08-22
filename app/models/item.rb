@@ -31,4 +31,15 @@ class Item < ActiveRecord::Base
       ('$%.2f' % (self.unit_price / 100)).to_s
   end
 
+  def self.average_price
+    average(:unit_price)
+  end
+
+  def self.oldest_item_created
+    order(:created_at).limit(1)
+  end
+
+  def self.newest_item_created
+    order(created_at: :desc).limit(1)
+  end
 end
