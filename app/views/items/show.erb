@@ -1,3 +1,127 @@
-<h1> <%= @item.name  %></h1>
-<p> <%= @item.unit_price  %> </p>
-<p> <%= @item.description  %> </p>
+<div class="jumbotron">
+  <h1 class="display-4", id="merchant-jumbo-title"><%= @item.name %></h1>
+  <hr class="my-4">
+  <p class="lead">
+<div class="table-responsive col-sm-4">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row"></th>
+        <td>
+          <button type="button" class="btn btn-outline-warning btn" data-toggle="modal" data-target="#editModal">
+            Edit
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit <%= @item.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class="form-horizontal" action="/items/<%= @item.id %>" method="POST">
+        <input type="hidden" value="PUT" name="_method"/>
+        <div class="modal-body">
+          <label for="basic-url">Merchants</label>
+          <div class="input-group col-sm-10">
+            <select class="form-control" id="sel1" name=item[merchant]>
+              <% @merchants.each do |merchant| %>
+                <option>
+                  <%= merchant.name %></option>
+              <% end %>
+
+            </select>
+
+          </div>
+
+          <label for="basic-url">Name</label>
+          <div class="input-group col-sm-10">
+            <input type="text" class="form-control" aria-label="Item Name" name=item[name]>
+          </div>
+
+          <label for="basic-url">Description</label>
+          <div class="input-group col-sm-10">
+            <textarea class="form-control" aria-label="description" name=item[description]></textarea>
+          </div>
+
+          <label for="basic-url">Price</label>
+          <div class="input-group col-sm-10">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Amount" name=item[unit_price]>
+          </div>
+
+          <label for="basic-url">Image URL</label>
+          <div class="input-group col-sm-10">
+            <input type="text" class="form-control" aria-label="Title" name=item[image]>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" id="item-show-edit" class="btn btn-outline-success">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete <%= @item.name %> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color:red; font-weight:bold; display:inline;"> WARNING! </p>
+        <p style="display: inline;">This will permenantly delete</p><p style="font-weight:bold; display:inline;"> <%= @item.name %> </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+        <form action="/item/<%= @item.id %>" method="post">
+          <input type="hidden" value="DELETE" name="_method"/>
+          <button type="submit" class="btn btn-outline-danger">DELETE</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h1> <%= Merchant.find(@item.merchant_id).name %> </h1>
+      </br>
+      <img src="/img/<%= @item.image %>" class="img-fluid" alt="Item image">
+    </div>
+    <div class="col-sm">
+      <h3><%= @item.name %></h3>
+      <p> <%= @item.unit_price %> </p>
+      <p><%= @item.description %></p>
+    </div>
+  </div>
+</div>

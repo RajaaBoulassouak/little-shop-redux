@@ -48,19 +48,23 @@
   </div>
 </form>
 
-<!--
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= @invoice.status.capitalize %>
-  </button>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-       <% @statuses.each do |status| %>
-      <form action="/invoices/<%= @invoice.id %>" method="post">
-   <input type="hidden" name="_method" value="PUT"/>
-   <input type="submit" value="<%= status %>" name="invoice[status]" class="dropdown-item" />
-    </form>
-  <% end %>
-  </div>
-</div>
->
+<table class="table table-bordered">
+ <thead>
+   <tr>
+     <th scope="col">Item ID</th>
+     <th scope="col">Item Title</th>
+     <th scope="col">Quantity</th>
+     <th scope="col">Unit Price</th>
+   </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <%  @invoice_items.each do |invoice_item| %>
+       <td> <a href="/items/<%= invoice_item.item_id %> target="_blank"><%= invoice_item.item_id %></a></td>
+     <td> <%= Item.find(invoice_item.item_id).name %> </td>
+     <td> <%=  invoice_item.quantity %> </td>
+     <td> <%=  invoice_item.unit_price %> </td>
+   </tr>
+ <% end %>
+ </tbody>
+</table>

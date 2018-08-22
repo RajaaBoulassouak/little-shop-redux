@@ -50,12 +50,13 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/items/new' do
+    @merchants = Merchant.all
     erb :'items/new'
   end
 
   post '/items' do
     create_details = params[:item]
-    merchant_id = Merchant.find_by(name: create_details[:merchant])
+    merchant_id = Merchant.find_by(name: create_details[:merchant].strip)
     Item.create(name: create_details[:name],
                 description: create_details[:description],
                 unit_price: create_details[:unit_price].to_i,
@@ -67,7 +68,7 @@ class LittleShopApp < Sinatra::Base
 
   put '/items/:id' do |id|
     update_details = params[:item]
-    merchant_id = Merchant.find_by(name: update_details[:merchant])
+    merchant_id = Merchant.find_by(name: update_details[:merchant].strip)
     Item.update(id.to_i,
                 name: update_details[:name],
                 description: update_details[:description],
@@ -75,9 +76,6 @@ class LittleShopApp < Sinatra::Base
                 merchant_id: merchant_id.id,
                 image: update_details[:image])
     redirect "/items/#{id}"
-
-    Item.update(id.to_i, params[:item])
-    redirect "items/#{id}"
   end
 
   delete '/items/:id' do |id|
@@ -92,6 +90,7 @@ class LittleShopApp < Sinatra::Base
   end
 
   get '/items/:id' do |id|
+    @merchants = Merchant.all
     @item = Item.find(id)
     erb :'items/show'
   end
@@ -117,6 +116,7 @@ class LittleShopApp < Sinatra::Base
 
   get '/invoices/:id/edit' do
     @invoice = Invoice.find( params[:id] )
+    @invoice_items = @invoice.invoice_items
     @statuses = Invoice.statuses
     erb :'invoices/edit'
   end
@@ -126,8 +126,9 @@ class LittleShopApp < Sinatra::Base
     redirect "/invoices/#{id}"
   end
 
-  get '/invoices/:id' do
-    @invoice = Invoice.find_by( id: params[:id] )
+  get '/invoices/:id' do |id|
+    @statuses = Invoice.statuses
+    @invoice = Invoice.find(id)
     @invoice_items = @invoice.invoice_items
     erb :'invoices/show'
   end
